@@ -5,14 +5,13 @@
 (define (improve y x)
   (/ (+(/ x (square y)) (* 2 y)) 3))
 
-(define (good-enough? y x)
-  (< (/ (abs (- (abs y) (abs (improve y x)))) (abs y)) (* (abs y) 0.0000000000000001)))
-  
-;(define (good-enough? y x)
-;(< (abs (- (cube y) x)) 0.001))
+
+(define (good-enough? y_prev y)
+  (< (abs (/ (- y_prev y) y)) 0.00000000001))
+
 
 (define (cube-root-iter y x)
-  (if (good-enough? y x)
+  (if (good-enough? (improve y x) y)
       y
       (cube-root-iter (improve y x) x)))
 
